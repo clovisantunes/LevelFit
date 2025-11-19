@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore'; // ← Importe estas funções
-import { auth, db, googleProvider } from '../../firebase/config'; // ← Importe o db
+import { doc, getDoc, setDoc } from 'firebase/firestore'; 
+import { auth, db, googleProvider } from '../../firebase/config'; 
 import GoogleLoginButton from '../GoogleLoginButton';
 import styles from './LoginForm.module.scss';
 
@@ -26,7 +26,6 @@ const LoginForm = ({ isActive, onToggleForm }: LoginFormProps) => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       
-      // ✅ VERIFICAR NO FIRESTORE SE COMPLETOU ONBOARDING
       const userDoc = await getDoc(doc(db, 'users', user.uid));
       
       if (!userDoc.exists() || !userDoc.data()?.hasCompletedOnboarding) {
