@@ -69,13 +69,11 @@ const LoginForm = ({ isActive, onToggleForm }: LoginFormProps) => {
       
       console.log('✅ LOGIN GOOGLE BEM-SUCEDIDO');
       
-      // ✅ VERIFICAR SE É A PRIMEIRA VEZ DO USUÁRIO GOOGLE
       const userDoc = await getDoc(doc(db, 'users', user.uid));
       
       if (!userDoc.exists()) {
         console.log('👤 PRIMEIRO LOGIN GOOGLE - CRIANDO DOCUMENTO');
         
-        // 🆕 CRIAR DOCUMENTO PARA USUÁRIO GOOGLE
         await setDoc(doc(db, 'users', user.uid), {
           email: user.email,
           displayName: user.displayName,
@@ -89,7 +87,6 @@ const LoginForm = ({ isActive, onToggleForm }: LoginFormProps) => {
         console.log('🚀 REDIRECIONANDO PARA ONBOARDING');
         navigate('/onboarding');
       } else {
-        // ✅ USUÁRIO JÁ EXISTE NO FIRESTORE
         const userData = userDoc.data();
         
         if (!userData.hasCompletedOnboarding) {
