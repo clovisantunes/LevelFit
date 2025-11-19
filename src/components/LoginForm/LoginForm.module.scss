@@ -1,0 +1,217 @@
+@import '../../styles/variables.scss';
+
+.loginForm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  visibility: hidden;
+
+  &.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+    visibility: visible;
+    position: relative;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.inputLabel {
+  color: $text-primary;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: $font-system;
+  color: $accent-blue;
+
+  &::before {
+    content: '▶';
+    color: $accent-blue;
+    font-size: 0.7rem;
+    margin-right: 8px;
+    animation: terminalFlicker 1s infinite;
+  }
+}
+
+.inputField {
+  padding: 14px 16px;
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  border-radius: 4px;
+  background: rgba(10, 10, 15, 0.8);
+  color: $text-primary;
+  font-size: 1rem;
+  font-family: $font-system;
+  transition: all 0.3s ease;
+  min-height: 48px;
+  width: 100%;
+
+  &:focus {
+    border-color: $accent-blue;
+    box-shadow: $shadow-system;
+    outline: none;
+    background: rgba(10, 10, 15, 0.9);
+  }
+
+  &::placeholder {
+    color: rgba(160, 160, 176, 0.6);
+    font-family: $font-system;
+    font-size: 0.9rem;
+  }
+}
+
+.loginButton {
+  padding: 16px 24px;
+  background: $gradient-system;
+  color: $text-primary;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: $font-system;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+  min-height: 50px;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: $shadow-system;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  &.loading {
+    position: relative;
+    color: transparent;
+
+    &::after {
+      content: '⚡';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.3rem;
+      animation: systemProcessing 1s ease-in-out infinite;
+    }
+  }
+}
+
+/* Separador do Sistema */
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+  
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $accent-blue, transparent);
+  }
+}
+
+.separatorText {
+  padding: 0 20px;
+  color: $accent-blue;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-family: $font-system;
+}
+
+/* Links do Sistema */
+.formLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  border-top: 1px solid rgba(30, 144, 255, 0.2);
+}
+
+.linkButton {
+  background: none;
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  color: $accent-blue;
+  font-size: 0.8rem;
+  font-family: $font-system;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+
+  &:hover {
+    color: lighten($accent-blue, 20%);
+    background: rgba(30, 144, 255, 0.1);
+    border-color: $accent-blue;
+    box-shadow: 0 0 15px rgba(30, 144, 255, 0.3);
+  }
+}
+
+.linkSeparator {
+  color: $accent-purple;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+// Animações do Sistema
+@keyframes systemProcessing {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+// Responsividade
+@media (max-width: $mobile) {
+  .formLinks {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .linkSeparator {
+    display: none;
+  }
+}
