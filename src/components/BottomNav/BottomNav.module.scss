@@ -1,0 +1,135 @@
+@import '../../styles/variables';
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $secondary-dark;
+  border-top: 2px solid darken($secondary-dark, 5%);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  padding: 8px 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  min-width: 60px;
+  position: relative;
+
+  &:hover:not(.active) {
+    background: rgba($accent-purple, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &.active {
+    background: rgba($accent-purple, 0.15);
+  }
+}
+
+.iconContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.icon {
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.activeIndicator {
+  position: absolute;
+  bottom: -6px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.5px;
+}
+
+/* Animações */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Efeito de glow para itens ativos */
+.navItem.active .icon {
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* Safe area para iPhone */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottomNav {
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Responsividade */
+@media (max-width: $mobile) {
+  .navContainer {
+    padding: 0 5px;
+  }
+
+  .navItem {
+    padding: 6px 8px;
+    min-width: 50px;
+  }
+
+  .icon {
+    font-size: 1.2rem;
+  }
+
+  .label {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .label {
+    font-size: 0.6rem;
+  }
+  
+  .navItem {
+    padding: 4px 6px;
+  }
+}

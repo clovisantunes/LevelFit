@@ -1,0 +1,413 @@
+@import '../../../../styles/variables';
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal {
+  background: rgba(21, 21, 32, 0.95);
+  border: 1px solid rgba(30, 144, 255, 0.4);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: $shadow-system;
+  backdrop-filter: blur(20px);
+  animation: slideUp 0.3s ease;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px 20px;
+  border-bottom: 1px solid rgba(30, 144, 255, 0.3);
+  
+  h2 {
+    margin: 0;
+    background: linear-gradient(135deg, $accent-blue 0%, $accent-purple 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: $font-heading;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.3rem;
+  }
+}
+
+.closeButton {
+  background: rgba(160, 160, 176, 0.1);
+  border: 1px solid rgba(160, 160, 176, 0.3);
+  border-radius: 8px;
+  padding: 10px;
+  color: $text-secondary;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover:not(:disabled) {
+    background: rgba(160, 160, 176, 0.2);
+    color: $text-primary;
+    border-color: $text-primary;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.tabs {
+  display: flex;
+  background: rgba(21, 21, 32, 0.8);
+  border-bottom: 1px solid rgba(30, 144, 255, 0.2);
+  padding: 0 30px;
+}
+
+.tab {
+  flex: 1;
+  padding: 15px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: $text-secondary;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: $font-system;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  
+  &:hover:not(:disabled) {
+    color: $text-primary;
+    background: rgba(30, 144, 255, 0.1);
+  }
+  
+  &.active {
+    color: $accent-blue;
+    border-bottom-color: $accent-blue;
+    background: rgba(30, 144, 255, 0.05);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.modalContent {
+  padding: 0;
+}
+
+.tabContent {
+  padding: 30px;
+}
+
+.userInfo {
+  margin-bottom: 30px;
+  
+  h3 {
+    color: $accent-blue;
+    margin: 0 0 15px 0;
+    font-family: $font-heading;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1rem;
+  }
+}
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(30, 144, 255, 0.1);
+  
+  span {
+    color: $text-secondary;
+    font-family: $font-system;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+  }
+  
+  strong {
+    color: $text-primary;
+    font-family: $font-system;
+  }
+}
+
+.actionSection {
+  h3 {
+    color: $accent-blue;
+    margin: 0 0 15px 0;
+    font-family: $font-heading;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1rem;
+  }
+}
+
+.logoutButton {
+  width: 100%;
+  padding: 15px 20px;
+  background: rgba(220, 20, 60, 0.1);
+  border: 1px solid rgba(220, 20, 60, 0.3);
+  border-radius: 8px;
+  color: $danger-crimson;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: $font-system;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  
+  &:hover:not(:disabled) {
+    background: rgba(220, 20, 60, 0.2);
+    border-color: $danger-crimson;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 20, 60, 0.2);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.helpText {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(30, 144, 255, 0.05);
+  border-radius: 6px;
+  border-left: 3px solid $accent-blue;
+  
+  p {
+    margin: 0;
+    color: $text-secondary;
+    font-size: 0.8rem;
+    font-family: $font-system;
+    line-height: 1.4;
+  }
+}
+
+// ABA PERIGO
+.warningSection {
+  text-align: center;
+  margin-bottom: 25px;
+  padding: 20px;
+  background: rgba(255, 165, 0, 0.05);
+  border: 1px solid rgba(255, 165, 0, 0.3);
+  border-radius: 8px;
+}
+
+.warningIcon {
+  font-size: 2rem;
+  color: #ffa500;
+  margin-bottom: 10px;
+}
+
+.warningSection h3 {
+  color: #ffa500;
+  margin: 0 0 10px 0;
+  font-family: $font-heading;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.warningText {
+  color: $text-secondary;
+  margin: 0;
+  font-family: $font-system;
+  font-size: 0.9rem;
+}
+
+.dangerActions {
+  .deleteButton {
+    width: 100%;
+    padding: 15px 20px;
+    background: rgba(220, 20, 60, 0.1);
+    border: 1px solid rgba(220, 20, 60, 0.5);
+    border-radius: 8px;
+    color: $danger-crimson;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: $font-system;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    
+    &:hover:not(:disabled) {
+      background: rgba(220, 20, 60, 0.2);
+      border-color: $danger-crimson;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(220, 20, 60, 0.3);
+    }
+  }
+}
+
+.warningDetails {
+  padding: 15px;
+  background: rgba(220, 20, 60, 0.05);
+  border-radius: 6px;
+  border-left: 3px solid $danger-crimson;
+  
+  h4 {
+    color: $danger-crimson;
+    margin: 0 0 10px 0;
+    font-family: $font-system;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+  }
+  
+  ul {
+    margin: 0 0 10px 0;
+    padding-left: 20px;
+    color: $text-secondary;
+    font-family: $font-system;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+  
+  p {
+    margin: 0;
+    color: $danger-crimson;
+    font-family: $font-system;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+}
+
+// CONFIRMAÇÃO DE EXCLUSÃO
+.confirmDelete {
+  text-align: center;
+  
+  h3 {
+    color: $danger-crimson;
+    margin: 0 0 15px 0;
+    font-family: $font-heading;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.confirmText {
+  color: $text-secondary;
+  margin: 0 0 25px 0;
+  font-family: $font-system;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.confirmActions {
+  display: flex;
+  gap: 15px;
+  
+  button {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: $font-system;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+}
+
+.cancelConfirmButton {
+  background: rgba(160, 160, 176, 0.1);
+  border: 1px solid rgba(160, 160, 176, 0.3);
+  color: $text-secondary;
+  
+  &:hover:not(:disabled) {
+    background: rgba(160, 160, 176, 0.2);
+    color: $text-primary;
+    border-color: $text-primary;
+  }
+}
+
+.confirmDeleteButton {
+  background: rgba(220, 20, 60, 0.2);
+  border: 1px solid $danger-crimson;
+  color: $danger-crimson;
+  
+  &:hover:not(:disabled) {
+    background: rgba(220, 20, 60, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 20, 60, 0.2);
+  }
+}
+
+// Animações
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: $mobile) {
+  .modalOverlay {
+    padding: 10px;
+  }
+  
+  .modal {
+    max-height: 95vh;
+  }
+  
+  .modalHeader {
+    padding: 20px 20px 15px;
+  }
+  
+  .tabs {
+    padding: 0 20px;
+  }
+  
+  .tabContent {
+    padding: 20px;
+  }
+  
+  .confirmActions {
+    flex-direction: column;
+  }
+}

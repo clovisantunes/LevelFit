@@ -1,0 +1,242 @@
+@import '../../../../styles/variables.scss';
+
+.muscleStats {
+  background: rgba(21, 21, 32, 0.9);
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(30, 144, 255, 0.1), 
+      transparent
+    );
+    transition: left 0.6s ease;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(30, 144, 255, 0.2);
+  
+  h3 {
+    margin: 0;
+    color: $accent-blue;
+    font-family: $font-heading;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 1rem;
+    text-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+  }
+  
+  svg {
+    color: $accent-blue;
+    font-size: 1.2rem;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.muscleCard {
+  background: rgba(10, 10, 15, 0.6);
+  border: 1px solid rgba(30, 144, 255, 0.2);
+  border-radius: 10px;
+  padding: 15px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &:hover {
+    border-color: $accent-blue;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(30, 144, 255, 0.2);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      rgba(30, 144, 255, 0.8), 
+      rgba(138, 43, 226, 0.8)
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+.muscleHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.muscleIcon {
+  font-size: 1.8rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30, 144, 255, 0.1);
+  border-radius: 10px;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.muscleInfo {
+  flex: 1;
+  
+  .muscleName {
+    display: block;
+    color: $text-primary;
+    font-family: $font-heading;
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .muscleRank {
+    display: block;
+    font-family: $font-system;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+  }
+}
+
+.levelBadge {
+  background: $gradient-system;
+  color: $text-primary;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-family: $font-system;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: $shadow-system;
+}
+
+.progressSection {
+  .xpInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    
+    span {
+      color: $text-secondary;
+      font-family: $font-system;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .xpIcon {
+      color: #ff4500;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.progressBar {
+  height: 6px;
+  background: rgba(10, 10, 15, 0.8);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.1), 
+      transparent
+    );
+    animation: progressShine 2s ease-in-out infinite;
+  }
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 3px;
+  position: relative;
+  z-index: 2;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.progressLabel {
+  color: $text-secondary;
+  font-family: $font-system;
+  font-size: 0.7rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@keyframes progressShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+// Responsividade
+@media (max-width: $mobile) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .muscleCard {
+    padding: 12px;
+  }
+  
+  .muscleIcon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .muscleInfo .muscleName {
+    font-size: 1rem;
+  }
+}

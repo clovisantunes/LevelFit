@@ -1,0 +1,94 @@
+@import '../../../../styles/variables.scss';
+
+.radarChart {
+  background: rgba(21, 21, 32, 0.9);
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  backdrop-filter: blur(10px);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  
+  h3 {
+    margin: 0 0 5px 0;
+    color: $accent-blue;
+    font-family: $font-heading;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1rem;
+  }
+  
+  .subtitle {
+    color: $text-secondary;
+    font-family: $font-system;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.chartContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.chart {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(30, 144, 255, 0.3));
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: rgba(10, 10, 15, 0.6);
+  border-radius: 6px;
+  border: 1px solid rgba(30, 144, 255, 0.2);
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px currentColor;
+}
+
+.legendName {
+  flex: 1;
+  color: $text-primary;
+  font-family: $font-system;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.legendLevel {
+  color: $accent-blue;
+  font-family: $font-system;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+@media (max-width: $mobile) {
+  .chart {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .legend {
+    grid-template-columns: 1fr;
+  }
+}

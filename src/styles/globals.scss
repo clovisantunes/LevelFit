@@ -1,0 +1,227 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: $font-primary;
+  background: $primary-dark;
+  color: $text-primary;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+// Scrollbar estilo Sistema
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $secondary-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $accent-blue;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: lighten($accent-blue, 10%);
+}
+
+::selection {
+  background: $accent-blue;
+  color: white;
+}
+
+a {
+  color: $accent-blue;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+
+  &:hover {
+    color: lighten($accent-blue, 15%);
+    text-shadow: $shadow-system;
+  }
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: $secondary-dark;
+  color: $text-primary;
+  border-radius: $border-radius;
+  padding: 12px 24px;
+  font-weight: bold;
+  border: 1px solid rgba(30, 144, 255, 0.3);
+
+  &:hover {
+    box-shadow: $shadow-system;
+    border-color: $accent-blue;
+    background: rgba(30, 144, 255, 0.1);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+input, textarea, select {
+  font-family: inherit;
+  background: rgba(10, 10, 15, 0.8);
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  border-radius: $border-radius;
+  color: $text-primary;
+  padding: 12px;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $accent-blue;
+    box-shadow: $shadow-system;
+    background: rgba(10, 10, 15, 0.9);
+  }
+
+  &::placeholder {
+    color: $text-secondary;
+    font-family: $font-system;
+  }
+}
+
+// Barras de status Solo Leveling
+.hp-bar { background: $danger-crimson; }
+.mp-bar { background: $mana-blue; }
+.xp-bar { background: $system-blue; }
+.stamina-bar { background: $rare-gold; }
+
+.text-hp { color: $danger-crimson; }
+.text-mp { color: $mana-blue; }
+.text-xp { color: $system-blue; }
+.text-stamina { color: $rare-gold; }
+
+.bg-dark { background: $primary-dark; }
+.bg-darker { background: $secondary-dark; }
+
+// Efeitos de brilho
+.glow-system { box-shadow: $shadow-system; }
+.glow-shadow { box-shadow: $shadow-shadow; }
+.glow-danger { box-shadow: 0 0 15px rgba(220, 20, 60, 0.5); }
+.glow-rare { box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
+
+// Animações Solo Leveling
+@keyframes systemPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.system-pulse {
+  animation: systemPulse 2s infinite;
+}
+
+@keyframes systemGlow {
+  0%, 100% { 
+    box-shadow: 0 0 5px $accent-blue, 0 0 10px rgba(30, 144, 255, 0.3);
+  }
+  50% { 
+    box-shadow: 0 0 15px $accent-blue, 0 0 30px rgba(30, 144, 255, 0.5);
+  }
+}
+
+.glow-animation {
+  animation: systemGlow 2s infinite;
+}
+
+@keyframes shadowRise {
+  0% { 
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% { 
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+}
+
+.shadow-rise {
+  animation: shadowRise 3s ease-in-out infinite;
+}
+
+// Container principal
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// Classes utilitárias
+.text-system { 
+  color: $system-blue; 
+  font-family: $font-system;
+}
+
+.text-shadow { 
+  color: $shadow-purple; 
+}
+
+.text-danger { 
+  color: $danger-crimson; 
+}
+
+.text-rare { 
+  color: $rare-gold; 
+}
+
+.border-system {
+  border: 1px solid rgba(30, 144, 255, 0.4);
+}
+
+.border-shadow {
+  border: 1px solid rgba(138, 43, 226, 0.4);
+}
+
+// Responsividade
+@media (max-width: $mobile) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  button, input, textarea {
+    padding: 10px 20px;
+  }
+}
+
+// Efeito de terminal/digitalização
+.terminal-text {
+  font-family: $font-system;
+  background: rgba(30, 144, 255, 0.1);
+  padding: 10px;
+  border-left: 3px solid $accent-blue;
+  border-radius: 2px;
+}
+
+// Cards estilo Sistema
+.system-card {
+  background: rgba(21, 21, 32, 0.9);
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  border-radius: $border-radius;
+  padding: 20px;
+  box-shadow: $shadow-system;
+  backdrop-filter: blur(10px);
+}
+
+.shadow-card {
+  background: rgba(21, 21, 32, 0.9);
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  border-radius: $border-radius;
+  padding: 20px;
+  box-shadow: $shadow-shadow;
+  backdrop-filter: blur(10px);
+}

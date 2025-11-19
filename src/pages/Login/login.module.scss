@@ -1,0 +1,199 @@
+@import '../../styles/variables';
+
+.loginContainer {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: 
+    // Efeito de portal dimensional - SEM VERDE
+    radial-gradient(circle at 20% 20%, rgba(30, 144, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(220, 20, 60, 0.05) 0%, transparent 50%),
+    // Grid do sistema azul
+    linear-gradient(rgba(30, 144, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 144, 255, 0.03) 1px, transparent 1px),
+    $gradient-dark;
+  background-size: 
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    50px 50px,
+    50px 50px;
+  padding: 16px;
+  touch-action: manipulation;
+  position: relative;
+  overflow: hidden;
+  font-family: $font-primary;
+
+  // Efeito de digitalização do Sistema - SEM VERDE
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(1px 1px at 10% 20%, $accent-blue 50%, transparent 100%),
+      radial-gradient(1px 1px at 30% 70%, $accent-blue 50%, transparent 100%),
+      radial-gradient(1px 1px at 70% 40%, $accent-purple 50%, transparent 100%),
+      radial-gradient(1px 1px at 90% 80%, $accent-purple 50%, transparent 100%),
+      radial-gradient(1px 1px at 60% 10%, $accent-red 50%, transparent 100%);
+    background-size: 200px 200px;
+    opacity: 0.4;
+    animation: systemScan 15s infinite linear;
+  }
+}
+
+.loginCard {
+  background: rgba(21, 21, 32, 0.92);
+  border: 1px solid rgba(30, 144, 255, 0.4);
+  border-radius: 8px;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 
+    $shadow-system,
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  backdrop-filter: blur(15px);
+  z-index: 2;
+  font-family: $font-system;
+
+  // Efeito de borda do Sistema - SEM VERDE
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, $accent-blue, $accent-purple, $accent-red, $accent-blue);
+    border-radius: 10px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  &:hover::before {
+    opacity: 0.4;
+  }
+}
+
+.loginHeader {
+  text-align: center;
+  margin-bottom: 32px;
+  position: relative;
+
+  // Linha do Sistema
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $accent-blue, transparent);
+    animation: systemPulse 2s ease-in-out infinite;
+  }
+}
+
+.loginTitle {
+  font-family: $font-heading;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, $accent-blue 0%, $accent-purple 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  text-shadow: 0 0 30px rgba(30, 144, 255, 0.8);
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  
+  // Efeito de brilho do Sistema
+  animation: systemGlow 3s ease-in-out infinite alternate;
+}
+
+.loginSubtitle {
+  color: $text-secondary;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: 600;
+  font-family: $font-system;
+}
+
+// Container dos formulários
+.formContainer {
+  position: relative;
+  min-height: 380px;
+  transition: min-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.formWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.formContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+// Animações do Sistema
+@keyframes systemScan {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-200px); }
+}
+
+@keyframes systemPulse {
+  0%, 100% { opacity: 0.5; width: 60px; }
+  50% { opacity: 1; width: 80px; }
+}
+
+@keyframes systemGlow {
+  0% { 
+    text-shadow: 0 0 20px rgba(30, 144, 255, 0.6),
+                 0 0 40px rgba(30, 144, 255, 0.3);
+  }
+  100% { 
+    text-shadow: 0 0 30px rgba(30, 144, 255, 0.9),
+                 0 0 60px rgba(30, 144, 255, 0.5),
+                 0 0 80px rgba(138, 43, 226, 0.3);
+  }
+}
+
+@keyframes terminalFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+// Efeito de digitação do Sistema
+.systemText {
+  font-family: $font-system;
+  animation: terminalFlicker 1s infinite;
+}
+
+@media (min-width: $tablet) {
+  .loginContainer {
+    padding: 20px;
+  }
+
+  .loginCard {
+    padding: 40px 32px;
+  }
+
+  .loginTitle {
+    font-size: 3rem;
+  }
+  
+  .formContainer {
+    min-height: 420px;
+  }
+}

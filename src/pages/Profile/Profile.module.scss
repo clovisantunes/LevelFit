@@ -1,0 +1,402 @@
+@import '../../styles/variables.scss';
+
+.profile {
+  min-height: 100vh;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(30, 144, 255, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(138, 43, 226, 0.08) 0%, transparent 40%),
+    $gradient-dark;
+  color: $text-primary;
+  padding-bottom: 80px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: $accent-blue;
+  font-family: $font-system;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+// Header do Perfil
+.profileHeader {
+  background: rgba(21, 21, 32, 0.95);
+  padding: 20px;
+  border-bottom: 1px solid rgba(30, 144, 255, 0.3);
+  backdrop-filter: blur(15px);
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.userMainInfo {
+  text-align: center;
+  flex: 1;
+}
+
+.username {
+  background: linear-gradient(135deg, $accent-blue 0%, $accent-purple 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.8rem;
+  margin: 0 0 5px 0;
+  font-family: $font-heading;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.userLevel {
+  color: $text-secondary;
+  margin: 0;
+  font-family: $font-system;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.headerActions {
+  display: flex;
+  gap: 10px;
+}
+
+.iconButton {
+  background: rgba(30, 144, 255, 0.1);
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  border-radius: 8px;
+  padding: 10px;
+  color: $accent-blue;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: rgba(30, 144, 255, 0.2);
+    border-color: $accent-blue;
+    transform: translateY(-2px);
+    box-shadow: $shadow-system;
+  }
+}
+
+.joinDate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: $text-secondary;
+  font-size: 0.9rem;
+  font-family: $font-system;
+}
+
+// Conteúdo Principal
+.profileContent {
+  padding: 20px;
+}
+
+// Tabs de Navegação
+.profileTabs {
+  display: flex;
+  background: rgba(21, 21, 32, 0.8);
+  border-radius: 12px;
+  padding: 5px;
+  margin-bottom: 25px;
+  border: 1px solid rgba(30, 144, 255, 0.2);
+}
+
+.tab {
+  flex: 1;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: $text-secondary;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: $font-system;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+
+  &:hover {
+    color: $text-primary;
+    background: rgba(30, 144, 255, 0.1);
+  }
+
+  &.active {
+    background: $gradient-system;
+    color: $text-primary;
+    box-shadow: $shadow-system;
+  }
+}
+
+// Conteúdo da Tab Overview
+.overviewContent {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.statCard {
+  background: rgba(21, 21, 32, 0.8);
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    border-color: $accent-blue;
+    transform: translateY(-3px);
+    box-shadow: $shadow-system;
+  }
+}
+
+.statIcon {
+  width: 50px;
+  height: 50px;
+  background: $gradient-system;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: $text-primary;
+}
+
+.statInfo {
+  flex: 1;
+}
+
+.statValue {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: $accent-blue;
+  margin-bottom: 5px;
+  font-family: $font-system;
+}
+
+.statLabel {
+  color: $text-secondary;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: $font-system;
+}
+
+.physicalData {
+  background: rgba(21, 21, 32, 0.8);
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+
+  h3 {
+    margin: 0 0 15px 0;
+    color: $accent-blue;
+    font-family: $font-system;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.physicalGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.physicalItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 15px;
+  background: rgba(10, 10, 15, 0.6);
+  border-radius: 8px;
+  border: 1px solid rgba(30, 144, 255, 0.2);
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $accent-blue;
+    transform: translateY(-2px);
+  }
+
+  svg {
+    color: $accent-blue;
+    font-size: 1.2rem;
+  }
+
+  span {
+    color: $text-primary;
+    font-family: $font-system;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}
+
+.progressSection {
+  background: rgba(21, 21, 32, 0.8);
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+
+  h3 {
+    margin: 0 0 15px 0;
+    color: $accent-blue;
+    font-family: $font-system;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.levelProgress {
+  .levelInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-family: $font-system;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+  }
+}
+
+.progressBar {
+  height: 8px;
+  background: rgba(10, 10, 15, 0.8);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: $gradient-system;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+// Conteúdo da Tab Achievements
+.achievementsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.achievementCard {
+  background: rgba(21, 21, 32, 0.8);
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    border-color: $accent-blue;
+    transform: translateX(5px);
+  }
+}
+
+.achievementIcon {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30, 144, 255, 0.1);
+  border-radius: 12px;
+}
+
+.achievementInfo {
+  flex: 1;
+
+  h4 {
+    margin: 0 0 5px 0;
+    color: $text-primary;
+    font-family: $font-heading;
+  }
+
+  p {
+    margin: 0 0 8px 0;
+    color: $text-secondary;
+    font-size: 0.9rem;
+    font-family: $font-system;
+  }
+}
+
+.achievementStatusCompleted {
+  background: rgba(0, 255, 0, 0.1);
+  color: #00ff00;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-family: $font-system;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.achievementStatusLocked {
+  background: rgba(160, 160, 176, 0.1);
+  color: $text-secondary;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-family: $font-system;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+// Responsividade
+@media (max-width: $mobile) {
+  .profileHeader {
+    padding: 15px;
+  }
+
+  .username {
+    font-size: 1.5rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .physicalGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .profileTabs {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .headerActions {
+    flex-direction: column;
+  }
+}
