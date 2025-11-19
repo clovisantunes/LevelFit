@@ -1,1 +1,2 @@
-declare module 'virtual:pwa-register';
+/// <reference types="vite-plugin-pwa/client" />
+
