@@ -7,7 +7,7 @@ interface LayoutProps {
   showBottomNav?: boolean;
 }
 
-const Layout = ({ children, showBottomNav = true }: LayoutProps) => {
+const Layout = ({ children = true }: LayoutProps) => {
   return (
     <div className={styles.layout}>
       <main className={styles.mainContent}>

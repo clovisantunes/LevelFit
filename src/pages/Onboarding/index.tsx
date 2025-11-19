@@ -7,16 +7,11 @@ import { useAuth } from '../../hooks/useAuth';
 import { 
   FaDragon, 
   FaUser, 
-  FaShieldAlt,
   FaFire,
   FaRunning,
-  FaDumbbell,
   FaCrown,
   FaArrowLeft,
   FaArrowRight,
-  FaHeart,
-  FaRulerVertical,
-  FaWeightHanging
 } from 'react-icons/fa';
 import { 
   GiMuscleUp, 
