@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore'; // ← Importe estas funções
-import { auth, db } from '../../firebase/config'; // ← Importe o db
-import styles from './RegisterForm.module.scss';
+import { doc, setDoc } from 'firebase/firestore'; 
+import { auth, db } from '../../firebase/config'; 
+import styles from './registerForm.module.scss';
 
 interface RegisterFormProps {
   isActive: boolean;
