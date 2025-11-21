@@ -1,7 +1,7 @@
 // pages/Profile/Profile.tsx
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 import {
     FaEdit,
@@ -21,6 +21,7 @@ import MuscleStats from './Components/MuscleStats/MuscleStats';
 import MuscleRadarChart from './Components/MuscleRadarChart';
 import EditProfileModal from './Components/EditProfileModal/EditProfileModal';
 import SettingsModal from './Components/SettingsModal/SettingsModal';
+import { useLevelSystem } from '../../hooks/useLevelSystem';
 
 interface UserData {
     firstName?: string;
@@ -56,13 +57,17 @@ const Profile = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
+    // Sistema de níveis
+    const levelSystem = useLevelSystem();
+
     useEffect(() => {
         const fetchUserData = async () => {
             if (user) {
                 try {
                     const userDoc = await getDoc(doc(db, 'users', user.uid));
                     if (userDoc.exists()) {
-                        setUserData(userDoc.data() as UserData);
+                        const data = userDoc.data() as UserData;
+                        setUserData(data);
                     }
                 } catch (error) {
                     console.error('Erro ao buscar dados do usuário:', error);
@@ -75,6 +80,27 @@ const Profile = () => {
         fetchUserData();
     }, [user]);
 
+    // Atualiza Firebase quando o nível muda
+    useEffect(() => {
+        const updateFirebaseLevels = async () => {
+            if (user && (levelSystem.userLevel > 1 || levelSystem.userXp > 0)) {
+                try {
+                    await updateDoc(doc(db, 'users', user.uid), {
+                        level: levelSystem.userLevel,
+                        xp: levelSystem.userXp,
+                        muscleStats: levelSystem.muscleStats,
+                        updatedAt: new Date()
+                    });
+                    console.log('Níveis atualizados no Firebase!');
+                } catch (error) {
+                    console.error('Erro ao atualizar níveis:', error);
+                }
+            }
+        };
+
+        updateFirebaseLevels();
+    }, [levelSystem.userLevel, levelSystem.userXp, user]);
+
     if (loading) {
         return (
             <div className={styles.profile}>
@@ -83,13 +109,13 @@ const Profile = () => {
         );
     }
 
-
+    // Dados do perfil - agora usando o sistema de níveis
     const profileData = {
         username: user?.displayName?.split(' ')[0] || userData.firstName || 'Aventureiro',
         fullName: user?.displayName || `${userData.firstName || ''} ${userData.lastName || ''}`.trim() || 'Usuário LevelFit',
-        level: userData.level || 1,
-        xp: userData.xp || 0,
-        nextLevelXp: (userData.level || 1) * 1000 + 1000,
+        level: levelSystem.userLevel, // Usa do sistema de níveis
+        xp: levelSystem.userXp, // Usa do sistema de níveis
+        nextLevelXp: levelSystem.userLevelProgress.nextLevelXp, // Calculado automaticamente
         joinDate: userData.createdAt?.toDate?.()?.toLocaleDateString('pt-BR') || 'Data não disponível',
         focus: userData.fitnessPath || userData.focus || 'Não definido',
         stats: {
@@ -108,11 +134,12 @@ const Profile = () => {
     const handleEditProfile = () => {
         setIsEditModalOpen(true);
     };
+
     const handleShareProfile = () => {
         if (navigator.share) {
             navigator.share({
                 title: `Perfil de ${profileData.username} - LevelFit`,
-                text: `Venha ver meu progresso no LevelFit! Nível ${profileData.level} e subindo! Nível ${profileData.level} - ${profileData.stats.workoutsCompleted} treinos concluídos!`,
+                text: `Venha ver meu progresso no LevelFit! Nível ${profileData.level} e subindo! ${profileData.stats.workoutsCompleted} treinos concluídos!`,
                 url: window.location.href,
             });
         } else {
@@ -124,6 +151,7 @@ const Profile = () => {
     const handleSettings = () => {
         setIsSettingsModalOpen(true);
     };
+
     const handleProfileUpdate = () => {
         const fetchUserData = async () => {
             if (user) {
@@ -139,6 +167,7 @@ const Profile = () => {
         };
         fetchUserData();
     };
+
     const renderOverview = () => (
         <div className={styles.overviewContent}>
             <div className={styles.statsGrid}>
@@ -162,7 +191,7 @@ const Profile = () => {
                     </div>
                 </div>
 
-                <div className={styles.statCard}>
+                <div className={styles.statCard}>l
                     <div className={styles.statIcon}>
                         <FaWeightHanging />
                     </div>
@@ -212,20 +241,21 @@ const Profile = () => {
                         <div
                             className={styles.progressFill}
                             style={{
-                                width: `${(profileData.xp / profileData.nextLevelXp) * 100}%`
+                                width: `${levelSystem.userLevelProgress.progressPercentage}%`
                             }}
                         ></div>
+                    </div>
+                    <div className={styles.levelDetails}>
+                        <small>
+                            {levelSystem.userLevelProgress.xpToNextLevel} XP para o próximo nível
+                        </small>
                     </div>
                 </div>
             </div>
 
-            {/* COMPONENTES DOS MÚSCULOS DENTRO DA RENDEROVERVIEW */}
-            {userData.muscleStats && (
-                <>
-                    <MuscleRadarChart muscleStats={userData.muscleStats} />
-                    <MuscleStats muscleStats={userData.muscleStats} />
-                </>
-            )}
+            {/* COMPONENTES DOS MÚSCULOS - Agora usando dados do sistema de níveis */}
+            <MuscleRadarChart muscleStats={levelSystem.muscleStats} />
+            <MuscleStats muscleStats={levelSystem.muscleStats} />
         </div>
     );
 
@@ -272,6 +302,29 @@ const Profile = () => {
                     </span>
                 </div>
             </div>
+
+            {/* Novas conquistas baseadas em nível */}
+            <div className={styles.achievementCard}>
+                <div className={styles.achievementIcon}>⭐</div>
+                <div className={styles.achievementInfo}>
+                    <h4>Novato Superado</h4>
+                    <p>Alcance o nível 5</p>
+                    <span className={levelSystem.userLevel >= 5 ? styles.achievementStatusCompleted : styles.achievementStatusLocked}>
+                        {levelSystem.userLevel >= 5 ? 'Concluído' : 'Bloqueado'}
+                    </span>
+                </div>
+            </div>
+
+            <div className={styles.achievementCard}>
+                <div className={styles.achievementIcon}>🌟🌟</div>
+                <div className={styles.achievementInfo}>
+                    <h4>Intermediário</h4>
+                    <p>Alcance o nível 10</p>
+                    <span className={levelSystem.userLevel >= 10 ? styles.achievementStatusCompleted : styles.achievementStatusLocked}>
+                        {levelSystem.userLevel >= 10 ? 'Concluído' : 'Bloqueado'}
+                    </span>
+                </div>
+            </div>
         </div>
     );
 
@@ -285,7 +338,12 @@ const Profile = () => {
 
                     <div className={styles.userMainInfo}>
                         <h1 className={styles.username}>{profileData.username}</h1>
-                        <p className={styles.userLevel}>Nível {profileData.level} • {profileData.focus}</p>
+                        <p className={styles.userLevel}>
+                            Nível {profileData.level} • {profileData.focus}
+                            {levelSystem.userLevel > 1 && (
+                                <span className={styles.levelBadge}> +{levelSystem.userLevel - 1}</span>
+                            )}
+                        </p>
                     </div>
 
                     <div className={styles.headerActions}>
@@ -325,17 +383,18 @@ const Profile = () => {
                     {activeTab === 'achievements' && renderAchievements()}
                 </div>
             </main>
+
             <EditProfileModal
                 isOpen={isEditModalOpen}
                 onClose={() => setIsEditModalOpen(false)}
                 userData={userData}
                 onUpdate={handleProfileUpdate}
             />
+
             <SettingsModal
                 isOpen={isSettingsModalOpen}
                 onClose={() => setIsSettingsModalOpen(false)}
             />
-
         </div>
     );
 };

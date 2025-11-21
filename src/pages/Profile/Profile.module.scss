@@ -28,7 +28,72 @@
   border-bottom: 1px solid rgba(30, 144, 255, 0.3);
   backdrop-filter: blur(15px);
 }
+.testSection {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #007bff;
+}
 
+.testButton {
+  padding: 0.75rem 1.5rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #0056b3;
+  }
+
+  &:last-child {
+    background: #28a745;
+
+    &:hover {
+      background: #1e7e34;
+    }
+  }
+}
+
+.levelBadge {
+  background: #ffc107;
+  color: #212529;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+.levelDetails {
+  margin-top: 0.5rem;
+  text-align: center;
+  
+  small {
+    color: #6c757d;
+    font-size: 0.8rem;
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .testSection {
+    flex-direction: column;
+  }
+  
+  .testButton {
+    justify-content: center;
+  }
+}
 .headerTop {
   display: flex;
   justify-content: space-between;

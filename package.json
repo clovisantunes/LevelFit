@@ -19,7 +19,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.28.0",
     "@eslint/js": "^9.39.1",
-    "@types/node": "^24.10.0",
+    "@types/node": "^24.10.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@vite-pwa/assets-generator": "^1.0.2",

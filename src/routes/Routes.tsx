@@ -3,6 +3,7 @@ import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
 import Onboarding from '../pages/Onboarding';
 import Profile from '../pages/Profile/index'; 
+import Workouts from '../pages/Workouts'; 
 import ProtectedRoute from '../components/ProtectedRoute';
 import PublicRoute from '../components/PublicRoute';
 import Layout from '../components/Layout/';
@@ -26,8 +27,7 @@ const AppRoutes = () => {
           path="/onboarding" 
           element={
             <ProtectedRoute>
-                <Onboarding />
-           
+              <Onboarding />
             </ProtectedRoute>
           } 
         />
@@ -43,13 +43,23 @@ const AppRoutes = () => {
           } 
         />
 
-        {/* Nova Rota Profile */}
         <Route 
           path="/profile" 
           element={
             <ProtectedRoute>
               <Layout>
                 <Profile />
+              </Layout>
+            </ProtectedRoute>
+          } 
+        />
+
+        <Route 
+          path="/workouts" 
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <Workouts />
               </Layout>
             </ProtectedRoute>
           } 
