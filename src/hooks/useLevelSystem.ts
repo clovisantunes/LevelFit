@@ -157,7 +157,7 @@ export const useLevelSystem = (initialConfig?: Partial<LevelConfig>) => {
   const calculateExerciseXp = useCallback((
     _muscle: keyof MuscleStats,
     exerciseType: 'strength' | 'hypertrophy' | 'endurance',
-    intensity: number, // 1-10
+    intensity: number,
     weight: number,
     reps: number,
     sets: number
