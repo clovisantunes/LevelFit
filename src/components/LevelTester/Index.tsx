@@ -6,7 +6,6 @@ export const LevelTester = () => {
   const {
     userLevel,
     userXp,
-    muscleStats,
     userLevelProgress,
     muscleProgress,
     testLevelUp,
@@ -17,7 +16,6 @@ export const LevelTester = () => {
     testShouldersWorkout,
     testFullBodyWorkout,
     resetLevels,
-    calculateNextLevelXp
   } = useLevelTester();
 
   return (

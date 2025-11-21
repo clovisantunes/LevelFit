@@ -154,16 +154,14 @@ export const useLevelSystem = (initialConfig?: Partial<LevelConfig>) => {
     });
   }, [addMuscleXp]);
 
-  // Calcula XP baseado no tipo de exercício e intensidade
   const calculateExerciseXp = useCallback((
-    muscle: keyof MuscleStats,
+    _muscle: keyof MuscleStats,
     exerciseType: 'strength' | 'hypertrophy' | 'endurance',
     intensity: number, // 1-10
     weight: number,
     reps: number,
     sets: number
   ): number => {
-    // Base XP por fatores
     let baseXp = 0;
     
     switch (exerciseType) {
